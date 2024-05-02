@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>State and District Dropdown</title>
+</head>
+<body>
+    <h2>Select State and District</h2>
+
+    <select id="state" onchange="populateDistricts()">
+        <option value="">Select State</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+        <!-- Add more states here -->
+    </select>
+
+    <select id="district" disabled>
+        <option value="">Select District</option>
+    </select>
+
+    <script>
+        function populateDistricts() {
+            var stateSelect = document.getElementById("state");
+            var districtSelect = document.getElementById("district");
+            var selectedState = stateSelect.options[stateSelect.selectedIndex].value;
+            districtSelect.innerHTML = ""; // Clear existing options
+            districtSelect.disabled = false; // Enable the district dropdown
+            var districts = getDistricts(selectedState);
+            populateOptions(districts);
+        }
+
+        function getDistricts(state) {
+            switch(state) {
+                case "Andhra Pradesh":
+                    return ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Kadapa", "Krishna", "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari"];
+                case "Arunachal Pradesh":
+                    return ["Tawang", "West Kameng", "East Kameng", "Papum Pare", "Kurung Kumey", "Kra Daadi", "Lower Subansiri", "Upper Subansiri", "West Siang", "East Siang", "Siang", "Upper Siang", "Lower Siang", "Lower Dibang Valley", "Dibang Valley", "Anjaw", "Lohit", "Namsai", "Changlang", "Tirap", "Longding"];
+                // Add cases for other states here
+                default:
+                    return [];
+            }
+        }
+
+        function populateOptions(districts) {
+            var districtSelect = document.getElementById("district");
+            for (var i = 0; i < districts.length; i++) {
+                var option = document.createElement("option");
+                option.text = districts[i];
+                option.value = districts[i];
+                districtSelect.add(option);
+            }
+        }
+    </script>
+</body>
+</html>
